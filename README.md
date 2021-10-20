@@ -14,7 +14,7 @@ It doesn't use any specific libraries or anything so you should be fine.
 
 
 ## Additions.
-- [X] Download from YouTube.
+- [ ] Download from YouTube.
 - [ ] Download from ~~Spotify~~ SoundCloud.
-- [ ] Important hooks and functions for GD coding.
-- [ ] Automatic updates for absolutes extensions library.
+- [ ] Automatically download to next free song value.
+- [ ] Download to custom song value.
