@@ -1,5 +1,5 @@
 [package]
-name = "megahack-extension-rs"
+name = "nong-downloader"
 version = "0.1.0"
 edition = "2018"
 
@@ -13,6 +13,3 @@ getfn = "0.1.1"
 detour = { git = "https://github.com/darfink/detour-rs" }
 winwrap = "0.1"
 lazy_static = "1.4"
-reqwest = "0.11.6"
-serde = "1.0.130"
-tokio = "1.12.0"
