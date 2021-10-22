@@ -1,22 +1,24 @@
 #![feature(abi_thiscall, core_intrinsics, const_float_bits_conv)]
 
-mod mhv6;
 mod extension;
+mod mhv6;
+mod state;
+mod download;
 
 use std::{panic, thread};
 
 pub use winwrap::winapi as __getfn_winapi__;
 
-use winwrap::winapi::shared::minwindef::*;
-use winwrap::winapi::shared::minwindef::{FALSE, TRUE}; // override ntdef
-use winwrap::winapi::shared::ntdef::*;
-use winwrap::winapi::um::wincon::*;
-use winwrap::winapi::um::winnt::*;
+use crate::mhv6::mhv6_init;
 use winwrap::raw::um::consoleapi::*;
 use winwrap::raw::um::libloaderapi::*;
 use winwrap::raw::um::processthreadsapi::*;
+use winwrap::winapi::shared::minwindef::*;
+use winwrap::winapi::shared::minwindef::{FALSE, TRUE}; // override ntdef
+use winwrap::winapi::shared::ntdef::*;
 use winwrap::winapi::um::libloaderapi::GetModuleHandleA;
-use crate::mhv6::mhv6_init;
+use winwrap::winapi::um::wincon::*;
+use winwrap::winapi::um::winnt::*;
 
 ///
 /// **MEGAHACKv6 EXTENSION**
@@ -59,7 +61,7 @@ unsafe extern "system" fn extension_main(dll: LPVOID) -> DWORD {
 
         extension_main_internal();
     })
-        .is_err()
+    .is_err()
     {
         /*
         Enter an error message here. If the extension crashes, the following will be run.
