@@ -6,6 +6,7 @@ pub struct State {
     pub link_type: String,
     pub quality: String,
     pub song_id: String,
+    pub auto_id: bool,
 }
 
 lazy_static! {
@@ -14,6 +15,7 @@ lazy_static! {
         link_type: "YouTube".to_string(),
         quality: "128k".to_string(),
         song_id: "1085360".to_string(),
+        auto_id: false,
     });
 }
 

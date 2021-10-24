@@ -13,3 +13,5 @@ getfn = "0.1.1"
 detour = { git = "https://github.com/darfink/detour-rs" }
 winwrap = "0.1"
 lazy_static = "1.4"
+clipboard-win = "4.2.2"
+directories = "4.0.1"

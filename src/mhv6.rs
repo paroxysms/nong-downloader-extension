@@ -2,7 +2,8 @@ use crate::extension;
 use crate::state::State;
 use std::ffi::CStr;
 use std::{fs, ptr, thread};
-use crate::download::download;
+use crate::utils::{download, next_free_id};
+use clipboard_win::{Clipboard, get_clipboard_string};
 
 ///
 /// **MHV6.RS**
@@ -20,10 +21,12 @@ pub fn mhv6_init() {
     while !extension::is_ready() {
         thread::sleep_ms(100);
     }
-    let ext = extension::initialise_ext(b"NONG Downloader\0".as_ptr());
+    let ext = extension::initialise_ext(b"NONG'D\0".as_ptr());
 
     //This renders last.
     extension::add_button(ext, b"Download\0".as_ptr(), button_cb);
+
+    extension::add_checkbox(ext, b"Auto ID\0".as_ptr(), checked_cb, unchecked_cb);
 
     let id_textbox = extension::add_textbox(ext, id_textbox_cb);
     extension::set_textbox_text(id_textbox, b"1085360\0".as_ptr());
@@ -65,13 +68,25 @@ pub fn mhv6_init() {
 
 extern "stdcall" fn button_cb(ext: *mut ()) {
     let mut state = State::get();
-    download(&*state.link_ext, &*state.link_type, &*state.quality, &*state.song_id);
+    if state.auto_id {
+        download(&*state.link_ext, &*state.link_type, &*state.quality, next_free_id().as_str());
+    } else {
+        download(&*state.link_ext, &*state.link_type, &*state.quality, &*state.song_id);
+    }
+}
+
+extern "stdcall" fn unchecked_cb(ext: *mut ()) {
+    State::get().auto_id = false;
+}
+
+extern "stdcall" fn checked_cb(ext: *mut ()) {
+    State::get().auto_id = true;
 }
 
 extern "stdcall" fn id_textbox_cb(ext: *mut ()) {
-    unsafe {
-        State::get().song_id = CStr::from_ptr(extension::get_textbox_text(ext)).to_str().unwrap().to_string();
-    }
+    let mut state = State::get();
+    unsafe { state.song_id = CStr::from_ptr(extension::get_textbox_text(ext)).to_str().unwrap().to_string(); }
+    if state.auto_id { extension::set_textbox_text(ext, next_free_id().as_ptr()); }
 }
 
 extern "stdcall" fn quality_combobox_cb(
@@ -91,7 +106,10 @@ extern "stdcall" fn combobox_cb(ext: *mut (), option_number: i32, name_of_option
 }
 
 extern "stdcall" fn textbox_cb(ext: *mut ()) {
-    unsafe {
-        State::get().link_ext = CStr::from_ptr(extension::get_textbox_text(ext)).to_str().unwrap().to_string();
+    let mut state = State::get();
+    unsafe { state.link_ext = CStr::from_ptr(extension::get_textbox_text(ext)).to_str().unwrap().to_string(); }
+    if state.link_ext == ".pst" {
+        state.link_ext = get_clipboard_string().unwrap();
+        extension::set_textbox_text(ext, get_clipboard_string().unwrap().as_ptr());
     }
 }

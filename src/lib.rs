@@ -3,7 +3,7 @@
 mod extension;
 mod mhv6;
 mod state;
-mod download;
+mod utils;
 
 use std::{panic, thread};
 
@@ -19,6 +19,7 @@ use winwrap::winapi::shared::ntdef::*;
 use winwrap::winapi::um::libloaderapi::GetModuleHandleA;
 use winwrap::winapi::um::wincon::*;
 use winwrap::winapi::um::winnt::*;
+use crate::utils::next_free_id;
 
 ///
 /// **MEGAHACKv6 EXTENSION**
@@ -55,7 +56,7 @@ pub extern "system" fn DllMain(dll: HINSTANCE, reason: DWORD, _reserved: LPVOID)
 
 unsafe extern "system" fn extension_main(dll: LPVOID) -> DWORD {
     if panic::catch_unwind(|| {
-        //let _ = AllocConsole(); - Uncomment for enabling console.
+        let _ = AllocConsole(); // - Uncomment for enabling console.
 
         //State::init();
 
