@@ -14,7 +14,8 @@ It doesn't use any specific libraries or anything so you should be fine.
 
 
 ## Additions.
-- [ ] Download from YouTube.
+- [x] Download from YouTube.
+- [x] Automatically download to next free song value.
+- [x] Download to custom song value.
+- [ ] Increase conversion speed.
 - [ ] Download from ~~Spotify~~ SoundCloud.
-- [ ] Automatically download to next free song value.
-- [ ] Download to custom song value.
