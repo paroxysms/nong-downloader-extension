@@ -41,7 +41,7 @@ pub fn mhv6_init() {
         ]
             .as_mut_ptr(),
     );
-    extension::set_combobox_index(quality_combobox, 3);
+    extension::set_combobox_index(quality_combobox, 0);
 
     let combobox = extension::add_combobox(ext, combobox_cb);
     extension::set_combobox_strs(

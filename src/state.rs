@@ -12,7 +12,7 @@ lazy_static! {
     static ref STATE: Mutex<State> = Mutex::new(State {
         link_ext: "ZmsdIQuywaE".to_string(),
         link_type: "YouTube".to_string(),
-        quality: "320k".to_string(),
+        quality: "128k".to_string(),
         song_id: "1085360".to_string(),
     });
 }

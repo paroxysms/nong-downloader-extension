@@ -1,6 +1,6 @@
 use std::process::Command;
 
-pub async fn download(link_ext: &str, link_type: &str, quality: &str, song_id: &str) {
+pub fn download(link_ext: &str, link_type: &str, quality: &str, song_id: &str) {
     //youtube-dl.exe
     // --output %localappdata%/GeometryDash/123456789.%(ext)s
     // --extract-audio
@@ -11,12 +11,21 @@ pub async fn download(link_ext: &str, link_type: &str, quality: &str, song_id: &
     let mut link = &*format!("https://www.youtube.com/watch?v={}", link_ext);
     Command::new("nong/converter.exe")
         .args(&[
-            format!("--output %localappdata%/GeometryDash/{}.%(ext)s", song_id).as_str(),
+            "--output",
+            format!("%localappdata%\\GeometryDash\\{}.%(ext)s", song_id).as_str(),
             "--extract-audio",
-            format!("--audio-quality={}]", quality).as_str(),
-            "--audio-format mp3",
+            "--audio-quality",
+            quality,
+            "--audio-format",
+            "mp3",
             link
         ])
         .output()
         .expect("failed to execute process");
 }
+
+/*pub fn download(link_ext: &str, link_type: &str, quality: &str, song_id: &str) {
+    let content = Rafy::new(&*format!("https://www.youtube.com/watch?v={}", link_ext)).unwrap();
+    let audiostreams = content.audiostreams;
+    audiostreams[0].download(&*format!("%localappdata%\\GeometryDash\\{}.mp3", song_id));
+}*/
