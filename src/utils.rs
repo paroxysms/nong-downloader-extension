@@ -34,7 +34,7 @@ pub fn next_free_id() -> String {
             //println!("{}", path);
 
             if !Path::new(path.as_str()).exists() {
-                println!("{} exists!", c);
+                //println!("{} exists!", c);
                 break;
             }
             c += 1;
