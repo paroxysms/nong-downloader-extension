@@ -17,5 +17,7 @@ It doesn't use any specific libraries or anything so you should be fine.
 - [x] Download from YouTube.
 - [x] Automatically download to next free song value.
 - [x] Download to custom song value.
-- [ ] Increase conversion speed.
-- [ ] Download from ~~Spotify~~ SoundCloud.
+- [x] Increase conversion speed.
+- [x] Download from ~~Spotify~~ SoundCloud.
+- [ ] Automatic importing and exporting song lists.
+- [ ] Set auto download default custom song lists.
