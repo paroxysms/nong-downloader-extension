@@ -123,6 +123,4 @@ extern "stdcall" fn textbox_cb(ext: *mut ()) {
     }
 }
 
-extern "stdcall" fn version_textbox_cb(ext: *mut ()) {
-    extension::set_textbox_text(ext, "\0".as_ptr());
-}
+extern "stdcall" fn version_textbox_cb(ext: *mut ()) { extension::set_textbox_text(ext, "\0".as_ptr()); }

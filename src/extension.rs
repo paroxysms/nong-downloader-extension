@@ -42,4 +42,5 @@ symbol_fn! {
     pub extern "C" fn commit_ext(ptr: *mut ()) -> bool;
     ("hackpro.dll" @ "?HackproWithdrawExt@@YA_NPAX@Z")
     pub extern "C" fn withdraw_ext(ptr: *mut ()) -> bool;
+
 }

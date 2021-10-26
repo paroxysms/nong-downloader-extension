@@ -15,7 +15,6 @@ pub fn download(link_ext: &str, link_type: &str, quality: &str, song_id: &str) {
     // https://www.youtube.com/watch?v=ZmsdIQuywaE
 
     let mut link= "".to_string();
-
     if link_type == "YouTube" {
         link = format!("https://www.youtube.com/watch?v={}", link_ext);
     } else if link_type == "SoundCloud" {

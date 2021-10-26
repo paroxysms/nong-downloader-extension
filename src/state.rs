@@ -7,7 +7,6 @@ pub struct State {
     pub quality: String,
     pub song_id: String,
     pub auto_id: bool,
-    pub link: String,
 }
 
 lazy_static! {
@@ -17,7 +16,6 @@ lazy_static! {
         quality: "128k".to_string(),
         song_id: "1085360".to_string(),
         auto_id: false,
-        link: "".to_string(),
     });
 }
 
