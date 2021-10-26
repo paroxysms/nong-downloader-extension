@@ -14,7 +14,10 @@ It doesn't use any specific libraries or anything so you should be fine.
 
 
 ## Additions.
-- [ ] Download from YouTube.
-- [ ] Download from ~~Spotify~~ SoundCloud.
-- [ ] Automatically download to next free song value.
-- [ ] Download to custom song value.
+- [x] Download from YouTube.
+- [x] Automatically download to next free song value.
+- [x] Download to custom song value.
+- [x] Increase conversion speed.
+- [x] Download from ~~Spotify~~ SoundCloud.
+- [ ] Automatic importing and exporting song lists.
+- [ ] Set auto download default custom song lists.
