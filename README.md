@@ -1,5 +1,6 @@
 # nong-downloader-extension
 A simple MegaHack v6 extension that helps you download NONG songs directly to GD.
+https://www.youtube.com/watch?v=vhWn79dSFqc
 
 
 ## Compiling.
