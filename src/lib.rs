@@ -56,7 +56,7 @@ pub extern "system" fn DllMain(dll: HINSTANCE, reason: DWORD, _reserved: LPVOID)
 
 unsafe extern "system" fn extension_main(dll: LPVOID) -> DWORD {
     if panic::catch_unwind(|| {
-        let _ = AllocConsole(); // - Uncomment for enabling console.
+        //let _ = AllocConsole(); // - Uncomment for enabling console.
 
         //State::init();
 

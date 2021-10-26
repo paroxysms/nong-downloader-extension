@@ -4,6 +4,8 @@ use std::ffi::CStr;
 use std::{fs, ptr, thread};
 use crate::utils::{download, next_free_id};
 use clipboard_win::{Clipboard, get_clipboard_string};
+use std::fs::OpenOptions;
+use std::io::Write;
 
 ///
 /// **MHV6.RS**
@@ -21,7 +23,7 @@ pub fn mhv6_init() {
     while !extension::is_ready() {
         thread::sleep_ms(100);
     }
-    let ext = extension::initialise_ext(b"NONG'D\0".as_ptr());
+    let ext = extension::initialise_ext(b"NoNG'd\0".as_ptr());
 
     //This renders last.
     extension::add_button(ext, b"Download\0".as_ptr(), button_cb);
@@ -51,6 +53,8 @@ pub fn mhv6_init() {
         combobox,
         [
             b"YouTube\0".as_ptr(),
+            b"SoundCloud\0".as_ptr(),
+            b"Spotify\0".as_ptr(),
             ptr::null()
         ]
             .as_mut_ptr(),
@@ -60,6 +64,10 @@ pub fn mhv6_init() {
     let textbox = extension::add_textbox(ext, textbox_cb);
     extension::set_textbox_text(textbox, b"ZmsdIQuywaE\0".as_ptr());
     extension::set_textbox_placeholder(textbox, b"Link\0".as_ptr());
+
+    let version_textbox = extension::add_textbox(ext, version_textbox_cb);
+    extension::set_textbox_text(version_textbox, b"\0".as_ptr());
+    extension::set_textbox_placeholder(version_textbox, b"Version: 0.2.0\0\0".as_ptr());
 
     //This renders first.
 
@@ -100,8 +108,9 @@ extern "stdcall" fn quality_combobox_cb(
 }
 
 extern "stdcall" fn combobox_cb(ext: *mut (), option_number: i32, name_of_option: *const u8) {
+    let mut state = State::get();
     unsafe {
-        State::get().link_type = CStr::from_ptr(name_of_option as *const i8).to_str().unwrap().to_string();
+        state.link_type = CStr::from_ptr(name_of_option as *const i8).to_str().unwrap().to_string();
     }
 }
 
@@ -112,4 +121,8 @@ extern "stdcall" fn textbox_cb(ext: *mut ()) {
         state.link_ext = get_clipboard_string().unwrap();
         extension::set_textbox_text(ext, get_clipboard_string().unwrap().as_ptr());
     }
+}
+
+extern "stdcall" fn version_textbox_cb(ext: *mut ()) {
+    extension::set_textbox_text(ext, "\0".as_ptr());
 }

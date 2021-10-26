@@ -1,16 +1,31 @@
 use std::process::Command;
 use std::path::Path;
 use directories::BaseDirs;
+use crate::state::State;
+use std::io;
+use std::io::Write;
 
 pub fn download(link_ext: &str, link_type: &str, quality: &str, song_id: &str) {
-    //youtube-dl.exe
+    // youtube-dl.exe
+    // --downloader ffmpeg.exe
     // --output %localappdata%/GeometryDash/123456789.%(ext)s
     // --extract-audio
     // --audio-quality=128k
     // --audio-format mp3
     // https://www.youtube.com/watch?v=ZmsdIQuywaE
 
-    let mut link = &*format!("https://www.youtube.com/watch?v={}", link_ext);
+    let mut link= "".to_string();
+
+    if link_type == "YouTube" {
+        link = format!("https://www.youtube.com/watch?v={}", link_ext);
+    } else if link_type == "SoundCloud" {
+        link = format!("https://soundcloud.com/{}", link_ext);
+    } else {
+        link = format!("https://open.spotify.com/track/{}", link_ext);
+    }
+
+    let path = Path::new("nong/ffmpeg/");
+
     Command::new("nong/converter.exe")
         .args(&[
             "--output",
@@ -20,7 +35,9 @@ pub fn download(link_ext: &str, link_type: &str, quality: &str, song_id: &str) {
             quality,
             "--audio-format",
             "mp3",
-            link
+            &*link,
+            "--ffmpeg-location",
+            path.to_str().unwrap(),
         ])
         .output()
         .expect("failed to execute process");
@@ -31,10 +48,7 @@ pub fn next_free_id() -> String {
     loop {
         if let Some(base_dirs) = BaseDirs::new() {
             let path = base_dirs.cache_dir().to_str().unwrap().to_owned() + &*"\\GeometryDash\\".to_owned() + &*c.to_string().to_owned() + &*".mp3".to_owned();
-            //println!("{}", path);
-
             if !Path::new(path.as_str()).exists() {
-                //println!("{} exists!", c);
                 break;
             }
             c += 1;
